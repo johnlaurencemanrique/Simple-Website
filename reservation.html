@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Plato Reservation</title>
+  <link rel="stylesheet" href="reservation.css">
+  <link rel="stylesheet" href="style2.css">
+</head>
+
+<body>
+
+<header>
+  <div class="headerbox">
+    <h1>PLATO RESTAURANT</h1>
+  </div>
+
+  <nav class="navbar">
+    <a href="home.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="menu.html">Menu</a>
+    <a href="reservation.html">Reservation</a>
+    <a href="contact.html">Contact</a>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </nav>
+</header>
+
+<section class="hero">
+
+  <div class="hero-left">
+    <h2> Reservation </h2>
+
+</section>
+
+<section class="reservation-wrapper">
+
+  <div class="slider">
+    <button class="prev" onclick="prevImage()">&#10094;</button>
+
+    <img id="sliderImage"
+      src="https://images.unsplash.com/photo-1559339352-11d035aa65de"
+      alt="Restaurant">
+
+    <button class="next" onclick="nextImage()">&#10095;</button>
+  </div>
+
+  <div class="reservation-form">
+
+    <h2>Reserve a Table</h2>
+
+    <form>
+      <input type="text" placeholder="Full Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <input type="tel" placeholder="Contact Number" required>
+      <input type="number" placeholder="Number of People" min="1" required>
+      <input type="date" required>
+      <textarea placeholder="Special Requests (optional)"></textarea>
+      <button type="submit">Reserve Now</button>
+    </form>
+
+  </div>
+
+</section>
+
+<footer class="footer">
+
+  <div class="footer-container">
+
+    <div class="footer-box">
+      <h3>PLATO Restaurant</h3>
+      <p>Delicious meals made with passion and served with care.</p>
+    </div>
+
+    <div class="footer-box">
+      <h3>Contact Us</h3>
+      <a href="#">Facebook</a>
+      <a href="#">Twitter</a>
+      <a href="#">YouTube</a>
+      <a href="mailto:plato2026@email.com">Email</a>
+    </div>
+
+    <div class="footer-box">
+      <h3>Opening Hours</h3>
+      <p>24/7 Service</p>
+      <p><strong>Status: Open Daily</p>
+    </div>
+
+    <div class="footer-box">
+      <h3>Our Store</h3>
+      <a href="menu.html">Menu</a>
+      <a href="contact.html">Contact</a>
+      <a href="about.html">About</a>
+      <a href="home.html">Home</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 PLATO Restaurant | All Rights Reserved</p>
+    <p>Designed by John Laurence Manrique and
+      Alexa Daniel Mirabueno</p>
+  </div>
+
+</footer>
+
+
+<script>
+function logout(){
+  window.location.href = "index.html";
+}
+
+const images = [
+  "https://images.unsplash.com/photo-1559339352-11d035aa65de",
+  "https://images.unsplash.com/photo-1552566626-52f8b828add9",
+  "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba",
+  "https://images.unsplash.com/photo-1414235077428-338989a2e8c0"
+];
+
+let index = 0;
+
+function showImage(){
+  document.getElementById("sliderImage").src = images[index];
+}
+
+function nextImage(){
+  index = (index + 1) % images.length;
+  showImage();
+}
+
+function prevImage(){
+  index = (index - 1 + images.length) % images.length;
+  showImage();
+}
+</script>
+
+</body>
+</html>

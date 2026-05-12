@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Plato Menu</title>
+  <link rel="stylesheet" href="menu.css">
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+<header>
+  <div class="headerbox">
+    <h1>PLATO RESTAURANT</h1>
+  </div>
+  <nav class="navbar">
+    <a href="home.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="menu.html">Menu</a>
+     <a href="reservation.html">Reservation</a>
+    <a href="contact.html">Contact</a>
+
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </nav>
+</header>
+
+ <section class="hero">
+
+  <div class="hero-left">
+    <h2> Food Menu</h2></div>
+
+</section>
+  <section id="products" class="products"></section>
+<div class="order" id="orderBox">
+  <h3>🍽️ Order</h3>
+  <ul id="order-items"></ul> 
+  <p><strong>Total:</strong> ₱<span id="total">0</span></p> 
+  <button class="PlaceOrder-btn" onclick="openPlaceOrder()">Place Order</button> 
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+<span class="close-x" onclick="closeModal()">x</span>
+    <h3>Payment</h3>
+    <input type="text" id="name" placeholder="Full Name"> 
+    <select id="method"> 
+      <option>Cash on Delivery</option>
+      <option>GCash</option>
+      <option>Credit Card</option>
+    </select>
+    <button onclick="payNow()">Pay Now</button> 
+  </div>
+</div>
+</div>
+
+<section id="products" class="products"></section>
+
+<footer class="footer">
+
+  <div class="footer-container">
+
+    <!-- ABOUT -->
+    <div class="footer-box">
+      <h3>PLATO Restaurant</h3>
+      <p>Delicious meals made with passion and served with care. Your satisfaction is our priority.</p>
+    </div>
+
+    <!-- CONTACT / LINKS -->
+    <div class="footer-box">
+      <h3>Contact Us</h3>
+
+      <a href="https://facebook.com" target="_blank">Facebook</a>
+      <a href="https://twitter.com" target="_blank">Twitter</a>
+      <a href="https://youtube.com" target="_blank">YouTube</a>
+      <a href="mailto:plato2026@email.com">Email Us</a>
+
+    </div>
+
+<div class="footer-box">
+  <h3>Opening Hours</h3>
+  <p>24/7</p>
+  <p><strong>Status: Open Daily</strong></p>
+</div>
+    <div class="footer-box">
+      <h3>Our Store</h3>
+      <a href="menu.html">Menu</a>
+      <a href="contact.html">Contact</a>
+      <a href="about.html">About</a>
+      <a href="home.html">Home</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 PLATO Restaurant | All Rights Reserved</p>
+    <p>Designed by John Laurence Manrique and
+      Alexa Daniel Mirabueno</p>
+  </div>
+
+</footer>
+
+<script>
+const products = [
+  {id:1,name:"Chicken Adobo",price:150,image:"https://www.butterbeready.com/wp-content/uploads/2021/10/DK6A1906.jpg"},
+  {id:2,name:"Pancit",price:120,image:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Pancit_Ilonggo_Style_-_12110747826.jpg/1920px-Pancit_Ilonggo_Style_-_12110747826.jpg"},
+  {id:3,name:"Pork Sisig",price:170,image:"https://upload.wikimedia.org/wikipedia/commons/d/d7/Authentic_Kapampangan_Sisig.jpg"},
+  {id:4,name:"Lumpia",price:100,image:"https://barefeetinthekitchen.com/wp-content/uploads/2025/05/Lumpia-BFK-8-1024x732.jpg"},
+  {id:5,name:"Bihon",price:120,image:"https://tse2.mm.bing.net/th/id/OIP.Dzpib4WK2FnjchFmtxsfIgHaFP?pid=Api&P=0&h=180"},
+  {id:6,name:"Biko",price:100,image:"https://images.saymedia-content.com/.image/t_share/MTc2MzA2ODUxNjQ4OTA2NDEz/biko-philippine-rice-cake.jpg"},
+  {id:7,name:"Pork Adobo",price:150,image:"https://yummykitchentv.com/wp-content/uploads/2023/06/adobong-baboy-with-pineapples-recipe.jpg"},
+  {id:8,name:"Afritada",price:100,image:"https://www.deecuisine.com/wp-content/uploads/2021/04/deecuisine-chicken-afritada-recipe.jpg"},
+  {id:9,name:"Crispy pata",price:200,image:"https://tse1.mm.bing.net/th/id/OIP.dCVFvG6wRmY8pJlqe3pPdQHaE7?pid=Api&P=0&h=180"},
+  {id:10,name:"Bicol express",price:150,image:"https://images.deliveryhero.io/image/foodpanda/recipes/bicol-express-recipe-1.jpg"}
+];
+
+let order = [];
+
+function displayProducts(){
+  const container = document.getElementById('products');
+  container.innerHTML = "";
+  products.forEach(p=>{
+    container.innerHTML += `
+      <div class="product">
+        <img src="${p.image}">
+        <h3>${p.name}</h3>
+        <p>₱${p.price}</p>
+        <button onclick="OrderNow(${p.id})">Order Now</button>
+      </div>`;
+  });
+}
+
+function OrderNow(id){
+  const existing = order.find(item=>item.id===id);
+  if(existing){
+    existing.qty++;
+  } else {
+    const product = products.find(p=>p.id===id);
+    order.push({...product, qty:1});
+  }
+  updateOrder();
+}
+
+function increaseQty(index){
+  order[index].qty++;
+  updateOrder();
+}
+
+function decreaseQty(index){
+  if(order[index].qty > 1){
+    order[index].qty--;
+  } else {
+    order.splice(index,1);
+  }
+  updateOrder();
+}
+
+function removeItem(index){
+  order.splice(index,1);
+  updateOrder();
+}
+
+function updateOrder(){
+  const list = document.getElementById('order-items');
+  const total = document.getElementById('total');
+  list.innerHTML = "";
+  let sum = 0;
+
+  order.forEach((item,index)=>{
+    sum += item.price * item.qty;
+    list.innerHTML += `
+      <li>
+        ${item.name} (₱${item.price} x ${item.qty})
+        <div>
+          <button onclick="decreaseQty(${index})">-</button>
+          <button onclick="increaseQty(${index})">+</button>
+          <button class="delete-btn" onclick="removeItem(${index})">X</button>
+        </div>
+      </li>`;
+  });
+
+  total.textContent = sum;
+}
+
+function openPlaceOrder(){
+  if(order.length === 0){
+    alert("No order yet!");
+    return;
+  }
+  document.getElementById('modal').style.display = 'flex';
+}
+
+function payNow(){
+  const name = document.getElementById('name').value;
+  const method = document.getElementById('method').value;
+
+  if(!name){
+    alert("Enter name");
+    return;
+  }
+
+  document.getElementById('name').value = "";
+
+  alert("🎉 Order placed successfully!\nThank you, " + name + "!\nPayment: " + method);
+
+  order = [];
+  updateOrder();
+  document.getElementById('modal').style.display = 'none';
+}
+
+function scrollToProducts(){
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
+}
+
+function closeModal(){
+  document.getElementById('modal').style.display = 'none';
+}
+
+const orderBox = document.querySelector('.order');
+let isDragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+orderBox.addEventListener('mousedown', (e)=>{
+  isDragging = true;
+  offsetX = e.clientX - orderBox.getBoundingClientRect().left;
+  offsetY = e.clientY - orderBox.getBoundingClientRect().top;
+  e.preventDefault();
+});
+
+document.addEventListener('mousemove', (e)=>{
+  if(!isDragging) return;
+  orderBox.style.left = (e.clientX - offsetX) + 'px';
+  orderBox.style.top = (e.clientY - offsetY) + 'px';
+  orderBox.style.right = 'auto';
+  orderBox.style.bottom = 'auto';
+});
+
+document.addEventListener('mouseup', ()=>{
+  isDragging = false;
+});
+
+function logout(){
+  window.location.href = "index.html";
+}
+
+displayProducts();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+
+    <style> 
+        *{ 
+            margin: 0; 
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center
+        }
+
+        body::before {
+         content: "";
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: url(https://png.pngtree.com/background/20230527/original/pngtree-lighting-of-cafe-table-and-chairs-picture-image_2760365.jpg);
+         background-size: cover;
+         background-position: center;
+         filter: blur(3px) brightness(0.95);
+         transform: scale(1.03);
+         z-index: -1;
+     }
+     .loginwrapper {
+        display: flex;
+        z-index: 1;
+        width: 850px;
+        height: 500px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        animation: fadeIn 0.9s ease;
+    }
+
+    @keyframes fadeIn{
+      from{
+       opacity:0;
+       transform: translateY(20px);
+   } to{
+       opacity:1;
+       transform: translateY(0);
+   }
+}
+
+.loginleft {
+    width: 50%;
+    background: url(https://t4.ftcdn.net/jpg/01/98/50/63/360_F_198506301_zS7IDI4YU7kW0zFVagjTwl8AVI7lZvjP.jpg);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    box-shadow: 
+    0 12px 30px rgba(0,0,0,0.6), 
+    0 0 15px rgba(222,184,135,0.35), 
+    0 0 30px rgba(222, 184, 135, 0.25),
+    0 0 12px rgba(255, 255, 255, 0.18),
+    0 0 28px rgba(255, 255, 255, 0.10);
+}
+
+.loginleft h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.loginleft p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+
+.loginright {
+    width: 50%;
+    background: url(https://img.freepik.com/premium-photo/light-wood-background_808699-7848.jpg?w=2000);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow: 
+    0 12px 30px rgba(0,0,0,0.6), 
+    0 0 15px rgba(222,184,135,0.35), 
+    0 0 30px rgba(222, 184, 135, 0.25),
+    0 0 12px rgba(255, 255, 255, 0.18),
+    0 0 28px rgba(255, 255, 255, 0.10);
+}
+
+.loginright h2{
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.inputgroup {
+    margin-bottom: 15px;
+}
+
+.inputgroup label{
+    font-size: 13px;
+    color: #555;
+}
+
+.inputgroup input{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.inputgroup input:focus {
+    border-color: #c75b12;
+    box-shadow: 0 0 8px rgba(199, 91, 18, 0.4);
+}
+
+.loginbtn {
+    margin-top: 10px;
+    padding: 12px;
+    font-size:10px;
+    border:none;
+    border-radius:20px;
+    background: linear-gradient(135deg, #e04848, #8b1a1a);
+    color:white;
+    cursor:pointer;
+    box-shadow:0 0 15px rgba(244,72,72,0.6); 
+}
+
+.loginbtn:hover{
+    background: linear-gradient(135deg, #ff8c00, #d62828);
+    box-shadow: 0 0 12px rgba(255,140,0,0.5),
+    0 0 25px rgba(214,40,40,0.3);
+}
+
+.loginbtn:active {
+    background: linear-gradient(135deg, #c75b12, #7a1c1c);
+    box-shadow: 0 0 10px rgba(199, 91, 18, 0.5),
+    0 0 20px rgba(122, 28, 28, 0.4)
+}
+
+.extra{
+    margin-top: 15px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.extra a{
+    color: #2a5298;
+    text-decoration: none;
+}
+
+.extra a:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+</style>
+</head>
+
+<body>
+
+    <div class="loginwrapper">
+
+        <div class="loginleft">
+            <h1>Welcome Back!</h1>
+            <p>Login to access your system dashboard and manage your data efficiently.</p>
+        </div>
+
+        <div class="loginright">
+            <h2>Sign In</h2>
+
+            <div class="inputgroup">
+                <label for="Username">Username</label>
+                <input type="text" id="Username" placeholder="Enter your username">
+            </div>
+
+            <div class="inputgroup">
+                <label for="Password">Password</label>
+                <input type="password" id="Password" placeholder="Enter your password">
+            </div>
+
+            <button class="loginbtn" onclick="login()">Login</button>
+
+            <div class="error" id="error"></div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function login() {
+            const Username = document.getElementById("Username").value;
+            const Password = document.getElementById("Password").value;
+
+            if (Username === "admin" && Password === "1234"){
+              window.location.href = "home.html";
+          } else {
+            document.getElementById("error").innerText = "Invalid Username or Password";
+        }
+
+    }
+</script>
+
+
+
+</body>
+</html
